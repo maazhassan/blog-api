@@ -1,0 +1,24 @@
+{
+  "name": "blog-api",
+  "version": "1.0.0",
+  "description": "Express.js API to automatically generate and serve blog posts from markdown files.",
+  "main": "src/server.ts",
+  "scripts": {
+    "build": "npx tsc",
+    "start": "nodemon src/server.ts"
+  },
+  "author": "Maaz Hassan",
+  "license": "ISC",
+  "dependencies": {
+    "cors": "^2.8.5",
+    "dotenv": "^16.4.1",
+    "express": "^4.18.2",
+    "nodemon": "^3.0.3"
+  },
+  "devDependencies": {
+    "@types/cors": "^2.8.17",
+    "@types/express": "^4.17.21",
+    "ts-node-dev": "^2.0.0",
+    "typescript": "^5.3.3"
+  }
+}
