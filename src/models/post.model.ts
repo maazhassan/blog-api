@@ -1,11 +1,12 @@
 import { DataTypes, Sequelize, Model, InferAttributes, InferCreationAttributes, CreationOptional } from "sequelize";
 
 export class Post extends Model<InferAttributes<Post>, InferCreationAttributes<Post>> {
-  declare id: CreationOptional<number>;
+  declare id: number;
   declare title: string;
   declare author: string;
   declare description: string;
   declare content: string;
+  declare thumbnail: CreationOptional<string>;
 }
 
 export default (sequelize: Sequelize) => {
@@ -13,7 +14,6 @@ export default (sequelize: Sequelize) => {
     {
       id: {
         type: DataTypes.INTEGER,
-        autoIncrement: true,
         primaryKey: true,
       },
       title: {
@@ -31,7 +31,11 @@ export default (sequelize: Sequelize) => {
       content: {
         type: DataTypes.TEXT,
         allowNull: false,
-      }
+      },
+      thumbnail: {
+        type: DataTypes.STRING,
+        allowNull: true,
+      },
     },
     {
       sequelize
