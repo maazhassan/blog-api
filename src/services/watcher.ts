@@ -3,7 +3,6 @@ import matter from 'gray-matter';
 import fs from 'fs';
 import sequelize from './db.js';
 import { Post } from '../models/post.model.js';
-import { Path } from 'typescript';
 
 export default function watch() {
   const watcher = new Watcher(process.env.POSTS_PATH, {
@@ -28,6 +27,9 @@ export default function watch() {
         return;
       }
 
+      // Post.upsert({
+      //   filename: path,
+      //   title: frontMatter.title,
 
 
     });

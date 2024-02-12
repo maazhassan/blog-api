@@ -1,6 +1,7 @@
 import { DataTypes, Sequelize, Model, InferAttributes, InferCreationAttributes, CreationOptional } from "sequelize";
 
 export class Post extends Model<InferAttributes<Post>, InferCreationAttributes<Post>> {
+  declare id: number;
   declare filename: string;
   declare title: string;
   declare author: string;
@@ -12,9 +13,13 @@ export class Post extends Model<InferAttributes<Post>, InferCreationAttributes<P
 export default (sequelize: Sequelize) => {
   Post.init(
     {
+      id: {
+        type: DataTypes.INTEGER,
+        primaryKey: true,
+      },
       filename: {
         type: DataTypes.STRING,
-        primaryKey: true,
+        allowNull: false,
       },
       title: {
         type: DataTypes.STRING,
@@ -33,7 +38,7 @@ export default (sequelize: Sequelize) => {
         allowNull: false,
       },
       thumbnail: {
-        type: DataTypes.STRING,
+        type: DataTypes.STRING
       },
     },
     {
