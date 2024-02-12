@@ -1,7 +1,6 @@
 import Watcher from 'watcher';
 import matter from 'gray-matter';
 import fs from 'fs';
-import sequelize from './db.js';
 import { Post } from '../models/post.model.js';
 
 export default function watch() {
@@ -35,7 +34,12 @@ export default function watch() {
     });
   });
 
-  watcher.on('rename', (oldPath, newPath) => {
+  watcher.on('rename', async (oldPath, newPath) => {
     console.log(`File ${oldPath} has been renamed to ${newPath}`);
+
+    const oldFilename = oldPath.split('\\').pop();
+    const newFilename = newPath.split('\\').pop();
+    
+    await Post.update({ filename: newFilename }, { where: { filename: oldFilename } });
   });
 }
