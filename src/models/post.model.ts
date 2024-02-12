@@ -1,7 +1,7 @@
 import { DataTypes, Sequelize, Model, InferAttributes, InferCreationAttributes, CreationOptional } from "sequelize";
 
 export class Post extends Model<InferAttributes<Post>, InferCreationAttributes<Post>> {
-  declare id: number;
+  declare id: CreationOptional<number>;
   declare filename: string;
   declare title: string;
   declare author: string;
@@ -16,6 +16,7 @@ export default (sequelize: Sequelize) => {
       id: {
         type: DataTypes.INTEGER,
         primaryKey: true,
+        autoIncrement: true,
       },
       filename: {
         type: DataTypes.STRING,
