@@ -21,7 +21,7 @@ app.get('/', async (req, res) => {
 
 app.get('/create_example', async () => {
   await Post.create({
-    id: 1,
+    filename: "example.md",
     title: "Example Post",
     author: "Maaz Hassan",
     description: "This is an example post",
