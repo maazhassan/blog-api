@@ -48,7 +48,7 @@ export default function watch() {
           title: frontMatter.title,
           author: frontMatter.author,
           description: frontMatter.description,
-          content: content,
+          content: newContent,
           thumbnail: match ? match[1] : null
         });
       } catch (error) {
