@@ -26,8 +26,22 @@ export default function watch() {
         return;
       }
 
+      // Replace all Obsidian format images with <img> tags
+      const obsidianImageRegex = /!\[\[(.*?)\]\]/g;
+      const newContent = content.replace(obsidianImageRegex, match => {
+        const image = match.substring(3, match.length - 2);
+        return `<img src="${process.env.DOMAIN + '/' + image}" />`;
+      });
+
+      // Check if the first line is an <img> tag
+      const imgRegex = /<img src="([^"]*)" \/>/;
+      const firstLine = newContent.substring(0, newContent.indexOf('\n'));
+      const match = firstLine.match(imgRegex);
+      
+      // Get the filename of the post
       const filename = path.split('\\').pop();
 
+      // Update the post in the database
       try {
         await Post.upsert({
           filename: filename,
@@ -35,7 +49,7 @@ export default function watch() {
           author: frontMatter.author,
           description: frontMatter.description,
           content: content,
-          // thumbnail - get the first image from the content
+          thumbnail: match ? match[1] : null
         });
       } catch (error) {
         console.error(error);

@@ -7,7 +7,7 @@ export class Post extends Model<InferAttributes<Post>, InferCreationAttributes<P
   declare author: string;
   declare description: string;
   declare content: string;
-  declare thumbnail: CreationOptional<string>;
+  declare thumbnail: CreationOptional<string | null>;
 }
 
 export default (sequelize: Sequelize) => {
