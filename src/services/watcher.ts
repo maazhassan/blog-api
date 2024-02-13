@@ -12,7 +12,7 @@ export default function watch() {
   watcher.on('change', path => {
     console.log(`File ${path} has been changed`);
 
-    fs.readFile(path, 'utf8', (err, data) => {
+    fs.readFile(path, 'utf8', async (err, data) => {
       if (err) {
         console.error(err);
         return;
@@ -26,10 +26,23 @@ export default function watch() {
         return;
       }
 
-      // Post.upsert({
-      //   filename: path,
-      //   title: frontMatter.title,
+      const filename = path.split('\\').pop();
 
+      try {
+        await Post.upsert({
+          filename: filename,
+          title: frontMatter.title,
+          author: frontMatter.author,
+          description: frontMatter.description,
+          content: content,
+          // thumbnail - get the first image from the content
+        });
+      } catch (error) {
+        console.error(error);
+        return;
+      }
+
+      console.log('Post has been updated');
 
     });
   });

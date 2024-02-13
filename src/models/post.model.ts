@@ -21,6 +21,7 @@ export default (sequelize: Sequelize) => {
       filename: {
         type: DataTypes.STRING,
         allowNull: false,
+        unique: true,
       },
       title: {
         type: DataTypes.STRING,
