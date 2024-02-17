@@ -30,7 +30,7 @@ export default function watch() {
       const obsidianImageRegex = /!\[\[(.*?)\]\]/g;
       let newContent = content.replace(obsidianImageRegex, match => {
         const image = match.substring(3, match.length - 2);
-        return `<img src="${process.env.DOMAIN + '/' + image}" />`;
+        return `<img src="${process.env.SERVER_DOMAIN + '/' + image}" />`;
       });
 
       // Check if the first line is an <img> tag
