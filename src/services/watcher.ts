@@ -19,8 +19,8 @@ export default function watch() {
       }
       // console.log(data);
       const { content: content, data: frontMatter } = matter(data);
-      console.log(frontMatter);
-      console.log(content);
+      // console.log(frontMatter);
+      // console.log(content);
       
       if (frontMatter.draft === 'true') {
         return;
@@ -66,7 +66,7 @@ export default function watch() {
         return;
       }
 
-      console.log('Post has been updated');
+      console.log(`Post ${filename} has been updated`);
 
     });
   });
