@@ -28,7 +28,7 @@ export default function watch() {
 
       // Replace all Obsidian format images with <img> tags
       const obsidianImageRegex = /!\[\[(.*?)\]\]/g;
-      const newContent = content.replace(obsidianImageRegex, match => {
+      let newContent = content.replace(obsidianImageRegex, match => {
         const image = match.substring(3, match.length - 2);
         return `<img src="${process.env.DOMAIN + '/' + image}" />`;
       });
@@ -37,6 +37,16 @@ export default function watch() {
       const imgRegex = /<img src="([^"]*)" \/>/;
       const firstLine = newContent.substring(0, newContent.indexOf('\n'));
       const match = firstLine.match(imgRegex);
+
+      // Strip the thumbnail image from the content if it exists
+      if (match) {
+        newContent = newContent.substring(newContent.indexOf('\n') + 1, newContent.length);
+        
+        // Strip all newlines until we hit some content
+        while (newContent[0] === '\n') {
+          newContent = newContent.substring(1, newContent.length);
+        }
+      }
       
       // Get the filename of the post
       const filename = path.split('\\').pop();
