@@ -5,7 +5,7 @@ import watch from './services/watcher.js';
 import sequelize from './services/db.js';
 import { Post } from './models/post.model.js';
 
-sequelize.sync();
+sequelize.sync({force: true});
 dotenv.config();
 watch();
 
@@ -17,25 +17,16 @@ app.use(cors());
 
 app.use(express.static(process.env.IMAGES_PATH));
 
-app.get('/', (req, res) => {
-  res.send('Hello World!');
-});
-
-app.get('/create_example', async () => {
-  await Post.create({
-    filename: "example.md",
-    title: "Example Post",
-    author: "Maaz Hassan",
-    description: "This is an example post",
-    content: "This is the content of the example post"
-  });
-});
-
-app.get('/posts', async (req, res) => {
+app.get('/api/v1/posts', async (req, res) => {
   const posts = await Post.findAll();
   res.json(posts);
 });
 
+app.get('/api/v1/posts/:id', async (req, res) => {
+  const post = await Post.findByPk(req.params.id);
+  res.json(post);
+});
+
 app.listen(port, () => {
-  console.log(`Example app listening on port ${port}`); 
+  console.log(`Server listening on port ${port}`); 
 });
