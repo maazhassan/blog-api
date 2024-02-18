@@ -67,7 +67,6 @@ export default function watch() {
       }
 
       console.log(`Post ${filename} has been updated`);
-
     });
   });
 
@@ -79,4 +78,13 @@ export default function watch() {
     
     await Post.update({ filename: newFilename }, { where: { filename: oldFilename } });
   });
+
+  watcher.on('unlink', async path => {
+    console.log(`File ${path} has been removed`);
+
+    const filename = path.split('\\').pop();
+    await Post.destroy({ where: { filename: filename } });
+
+    console.log(`Post ${filename} has been deleted`);
+  })
 }
