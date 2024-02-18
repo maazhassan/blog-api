@@ -4,7 +4,7 @@ import fs from 'fs';
 import { Post } from '../models/post.model.js';
 
 export default function watch() {
-  const watcher = new Watcher(process.env.POSTS_PATH, {
+  const watcher = new Watcher(process.env.POSTS_PATH || '.', {
     renameDetection: true,
     persistent: true
   });
