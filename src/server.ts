@@ -5,7 +5,7 @@ import watch from './services/watcher.js';
 import sequelize from './services/db.js';
 import { Post } from './models/post.model.js';
 
-sequelize.sync({force: true});
+sequelize.sync();
 dotenv.config();
 watch();
 
